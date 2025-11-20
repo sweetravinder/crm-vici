@@ -1,50 +1,46 @@
 #!/bin/bash
-set -euo pipefail
+set -e
 
 echo "==============================="
 echo "     ViciCRM Build System"
 echo "==============================="
 
+# Root path
 REPO_ROOT="$GITHUB_WORKSPACE"
-BUILD_DIR="/tmp/vicicrm_build_$$"
-PKG_PREFIX="vicicrm_enterprise_full"
-TS=$(date -u +'%Y%m%dT%H%M%SZ"
-PKG_NAME="${PKG_PREFIX}_${TS}"
+BUILD_DIR="$REPO_ROOT/vicicrm"
+PKG_NAME="vicicrm_enterprise_full_$(date -u +%Y%m%dT%H%M%SZ)"
 
-echo "Creating build directory..."
-mkdir -p "$BUILD_DIR"
+echo "Building package: $PKG_NAME"
+echo "Repository root:  $REPO_ROOT"
+echo "Build directory:  $BUILD_DIR"
 
-echo "Copying vicicrm/ folder to build directory..."
-cp -r "$REPO_ROOT/vicicrm" "$BUILD_DIR/vicicrm"
+cd "$REPO_ROOT"
 
-if [ ! -d "$BUILD_DIR/vicicrm" ]; then
-    echo "ERROR: vicicrm folder missing!"; exit 1
+# Ensure build dir exists
+if [ ! -d "$BUILD_DIR" ]; then
+    echo "ERROR: vicicrm folder NOT found!"
+    exit 1
 fi
 
-cd "$BUILD_DIR"
+# Create temp build folder
+mkdir -p build_temp
+cp -R vicicrm/* build_temp/
 
-echo "--------------------------------"
-echo " Building ZIP Package"
-echo "--------------------------------"
-zip -r "${PKG_NAME}.zip" vicicrm
+echo "Creating tar.gz..."
+tar -czf "${PKG_NAME}.tar.gz" -C build_temp .
 
-echo "--------------------------------"
-echo " Building TAR.GZ Package"
-echo "--------------------------------"
-tar -czf "${PKG_NAME}.tar.gz" vicicrm
+echo "Creating zip..."
+cd build_temp
+zip -r "../${PKG_NAME}.zip" .
+cd ..
 
-echo "--------------------------------"
-echo " Generating SHA256"
-echo "--------------------------------"
+echo "Generating SHA256 checksum..."
 sha256sum "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" > sha256.txt
 
-echo "--------------------------------"
-echo " Moving artifacts"
-echo "--------------------------------"
-mv "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" sha256.txt "$GITHUB_WORKSPACE"
+echo "Cleaning up temp folder..."
+rm -rf build_temp
 
-echo "--------------------------------"
-echo " BUILD COMPLETE"
-echo "--------------------------------"
+echo "Artifacts built:"
+ls -lh "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" sha256.txt
 
-ls -lh "$REPO_ROOT/${PKG_PREFIX}"*
+echo "DONE."
