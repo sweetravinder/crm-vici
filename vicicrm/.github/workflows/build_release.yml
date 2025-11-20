@@ -1,0 +1,45 @@
+name: Build ViciCRM Release
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y zip tar gzip
+
+      - name: Prepare Package Name
+        run: |
+          PKG=vicicrm_enterprise_full
+          TS=$(date -u +"%Y%m%dT%H%M%SZ")
+          echo "PKG_NAME=${PKG}_${TS}" >> $GITHUB_ENV
+
+      - name: Run build script
+        run: |
+          bash build_vicicrm.sh
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PKG_NAME }}.zip
+          path: ${{ env.PKG_NAME }}.zip
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.PKG_NAME }}
+          name: ${{ env.PKG_NAME }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
