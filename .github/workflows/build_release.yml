@@ -1,9 +1,41 @@
-    - name: Upload Release Assets
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: vicicrm_enterprise_full_${{ github.run_id }}
-        name: "ViciCRM Enterprise Build ${{ github.run_id }}"
-        files: |
-          vicicrm_enterprise_full_*.zip
-          vicicrm_enterprise_full_*.tar.gz
-          sha256.txt
+name: ViciCRM Enterprise Build
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'vicicrm/**'
+      - 'build_vicicrm.sh'
+      - '.github/workflows/build_release.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Ensure zip & tar installed
+        run: sudo apt-get update && sudo apt-get install -y zip tar gzip
+
+      - name: Make build script executable
+        run: chmod +x build_vicicrm.sh
+
+      - name: Run build script
+        run: bash build_vicicrm.sh
+
+      - name: List generated artifacts
+        run: ls -lh vicicrm_enterprise_full_*.zip vicicrm_enterprise_full_*.tar.gz sha256.txt || true
+
+      - name: Create Release and upload assets
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: vicicrm_enterprise_full_${{ github.run_id }}
+          name: "ViciCRM Enterprise Build ${{ github.run_id }}"
+          files: |
+            vicicrm_enterprise_full_*.zip
+            vicicrm_enterprise_full_*.tar.gz
+            sha256.txt
