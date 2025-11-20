@@ -1,0 +1,30 @@
+.kpi-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.kpi-card {
+    flex: 1;
+    padding: 15px;
+    border-radius: 6px;
+    color: #fff;
+    text-align: center;
+}
+
+.kpi-value {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.kpi-label {
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+.kpi-blue    { background: #007bff; }
+.kpi-green   { background: #28a745; }
+.kpi-yellow  { background: #ffc107; color:#222; }
+.kpi-aqua    { background: #17a2b8; }
+.kpi-red     { background: #dc3545; }
+.kpi-purple  { background: #6f42c1; }

@@ -1,0 +1,26 @@
+<?php
+require_once "../../config.php";
+session_start();
+
+header("Content-Type: application/json");
+
+$pdo = db();
+$user_id = $_SESSION['user_id'];
+
+$q = $pdo->prepare("SELECT vicidial_user FROM crm_users WHERE user_id=?");
+$q->execute([$user_id]);
+$vd_user = $q->fetchColumn();
+
+$stmt = $pdo->prepare("
+    SELECT * FROM crm_calls
+    WHERE agent_user = ?
+    ORDER BY start_time DESC LIMIT 1
+");
+$stmt->execute([$vd_user]);
+
+$call = $stmt->fetch(PDO::FETCH_ASSOC);
+
+echo json_encode([
+    "status" => "ok",
+    "call"   => $call
+]);

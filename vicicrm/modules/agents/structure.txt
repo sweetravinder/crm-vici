@@ -1,0 +1,150 @@
+.
+├── ajax
+│   ├── agent_action.php
+│   ├── agent_monitor_actions.php
+│   ├── api_console_exec.php
+│   ├── check_call.php
+│   ├── live_agents_data.php
+│   ├── live_agent_status.php
+│   ├── load_notes.php
+│   ├── load_recordings.php
+│   ├── manual_dial_process.php
+│   ├── popup_api.php
+│   ├── popup_dynamic_fields.php
+│   ├── save_notes.php
+│   ├── sync_vicidial_user.php
+│   └── wallboard.php
+├── assets
+│   ├── dashboard.css
+│   ├── dashboard.js
+│   ├── js
+│   │   └── popup_handler.js
+│   ├── live_status_widget.js
+│   ├── popup_handler.js
+│   ├── style.css
+│   └── themes
+│       └── highcontrast
+│           └── style.css
+├── config.php
+├── cron
+│   ├── sync_agents.php
+│   ├── sync_calls.php
+│   ├── sync_leads.php
+│   └── sync_recordings.php
+├── footer.php
+├── header.php
+├── index.php
+├── lib
+│   ├── auth
+│   │   └── Auth.php
+│   ├── permissions
+│   │   ├── FieldPermission.php
+│   │   ├── helpers.php
+│   │   └── Permission.php
+│   ├── settings.php
+│   ├── utils
+│   │   └── Settings.php
+│   └── vicidial
+│       ├── AgentAPI.php
+│       ├── APIMap.php
+│       ├── helpers.php
+│       ├── NonAgentAPI.php
+│       ├── PopupManager.php
+│       ├── Realtime.php
+│       ├── VicidialAPI.php
+│       ├── VicidialDB.php
+│       ├── VicidialFieldMap.php
+│       ├── VicidialHelper.php
+│       └── ViciSync.php
+├── login.php
+├── logout.php
+├── manual_dial.php
+├── modules
+│   ├── admin
+│   │   ├── settings_system.php
+│   │   ├── settings_vicidial.php
+│   │   ├── vicidial_field_import.php
+│   │   └── vicidial_field_map.php
+│   ├── agents
+│   │   ├── agent_actions.php
+│   │   ├── agent_api_test.php
+│   │   ├── agent_edit.php
+│   │   ├── agent_login_handler.php
+│   │   ├── agent_panel.php
+│   │   ├── agent_realtime.php
+│   │   ├── agents_list.php
+│   │   ├── agent_toolbar.php
+│   │   ├── agent_update.php
+│   │   ├── agent_view.php
+│   │   ├── ajax
+│   │   │   ├── agent_edit.php
+│   │   │   ├── agent_view.php
+│   │   │   ├── live_agent_status.php
+│   │   │   └── monitor_actions.php
+│   │   ├── dialer_login.php
+│   │   ├── dialer_login_process.php
+│   │   ├── dialer_logout.php
+│   │   ├── dialer_status.php
+│   │   ├── live_agent_status.php
+│   │   └── monitor_actions.php
+│   ├── calls
+│   │   ├── calls_list.php
+│   │   └── call_view.php
+│   ├── dashboard
+│   │   ├── dashboard_admin.php
+│   │   ├── dashboard_agent.php
+│   │   ├── dashboard.php
+│   │   └── dashboard_supervisor.php
+│   ├── leads
+│   │   ├── ajax
+│   │   │   ├── agent_actions.php
+│   │   │   ├── import.php
+│   │   │   ├── import_process.php
+│   │   │   ├── load_history.php
+│   │   │   ├── load_notes.php
+│   │   │   ├── load_recordings.php
+│   │   │   ├── save_lead.php
+│   │   │   └── save_notes.php
+│   │   ├── lead_add.php
+│   │   ├── lead_delete.php
+│   │   ├── lead_edit.php
+│   │   ├── leads_list.php
+│   │   ├── lead_view.php
+│   │   ├── my_leads.php
+│   │   └── popup.php
+│   ├── popup
+│   │   ├── popup_modal.php
+│   │   ├── popup_slide.php
+│   │   └── popup_window.php
+│   ├── recordings
+│   │   ├── recordings_list.php
+│   │   └── recording_view.php
+│   ├── roles
+│   │   ├── field_permission_matrix.php
+│   │   ├── FieldPermission.php
+│   │   ├── page_permission_matrix.php
+│   │   ├── role_edit.php
+│   │   ├── role_fields.php
+│   │   ├── roles_list.php
+│   │   ├── save_field_permissions.php
+│   │   ├── save_permissions.php
+│   │   └── user_override.php
+│   ├── settings
+│   │   ├── save_settings.php
+│   │   └── settings.php
+│   ├── supervisor
+│   │   └── live_agents.php
+│   └── users
+│       ├── user_add.php
+│       ├── user_delete.php
+│       ├── user_edit.php
+│       └── users_list.php
+├── my_leads.php
+├── popup.php
+├── sidebar.php
+├── structure.txt
+├── wallboard.php
+└── ws
+    └── server.js
+
+26 directories, 121 files

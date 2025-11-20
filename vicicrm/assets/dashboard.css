@@ -1,0 +1,124 @@
+/* ============================================================
+   DASHBOARD GLOBAL LAYOUT
+============================================================ */
+.dashboard-box {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 18px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.dashboard-box h3 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* ============================================================
+   KPI ROW
+============================================================ */
+.kpi-row {
+    display: flex;
+    gap: 15px;
+    margin: 15px 0;
+    flex-wrap: wrap;
+}
+
+.kpi-card {
+    flex: 1;
+    min-width: 180px;
+    padding: 18px;
+    border-radius: 8px;
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+    transition: transform 0.2s;
+}
+
+.kpi-card:hover {
+    transform: scale(1.03);
+}
+
+.kpi-value {
+    font-size: 38px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.kpi-label {
+    font-size: 14px;
+    margin-top: 5px;
+    opacity: 0.9;
+}
+
+/* KPI COLORS */
+.kpi-blue    { background: #0d6efd; }
+.kpi-green   { background: #198754; }
+.kpi-yellow  { background: #ffc107; color: #222; }
+.kpi-red     { background: #dc3545; }
+.kpi-aqua    { background: #0dcaf0; }
+.kpi-purple  { background: #6f42c1; }
+.kpi-orange  { background: #fd7e14; }
+.kpi-indigo  { background: #6610f2; }
+
+/* ============================================================
+   TABLE STYLE
+============================================================ */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.table th {
+    background: #f1f1f1;
+    text-align: left;
+    padding: 10px;
+}
+
+.table td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.table tr:hover td {
+    background: #fafafa;
+}
+
+/* ============================================================
+   BUTTONS
+============================================================ */
+.btn {
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: #fff !important;
+    font-size: 14px;
+    margin-right: 8px;
+    display: inline-block;
+}
+
+.btn-primary   { background: #0d6efd; }
+.btn-secondary { background: #6c757d; }
+.btn-success   { background: #198754; }
+.btn-warning   { background: #ffc107; color: #222 !important; }
+.btn-danger    { background: #dc3545; }
+.btn-dark      { background: #212529; }
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media(max-width: 768px) {
+    .kpi-row {
+        display: block;
+    }
+    .kpi-card {
+        margin-bottom: 12px;
+    }
+    iframe {
+        height: 200px !important;
+    }
+}
