@@ -1,34 +1,8 @@
-name: ViciCRM Enterprise Build 1.0
-
-on:
-  workflow_dispatch:
-  push:
-    paths:
-      - 'vicicrm/**'
-      - 'build_vicicrm.sh'
-
-permissions:
-  contents: write
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Make build script executable
-      run: chmod +x build_vicicrm.sh
-
-    - name: Run Build Script
-      run: bash build_vicicrm.sh
-
     - name: Upload Release Assets
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: ${{ github.ref_name }}-${{ github.run_number }}
-        name: "ViciCRM Enterprise Build ${{ github.run_number }}"
+        tag_name: vicicrm_enterprise_full_${{ github.run_id }}
+        name: "ViciCRM Enterprise Build ${{ github.run_id }}"
         files: |
           vicicrm_enterprise_full_*.zip
           vicicrm_enterprise_full_*.tar.gz
