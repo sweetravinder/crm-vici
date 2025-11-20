@@ -41,7 +41,7 @@ sha256sum "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" > sha256.txt
 echo "--------------------------------"
 echo " Moving artifacts"
 echo "--------------------------------"
-mv "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" sha256.txt "$REPO_ROOT"
+mv "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" sha256.txt "$GITHUB_WORKSPACE"
 
 echo "--------------------------------"
 echo " BUILD COMPLETE"
