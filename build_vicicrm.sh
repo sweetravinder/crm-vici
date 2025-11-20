@@ -1,33 +1,50 @@
 #!/bin/bash
 set -euo pipefail
 
-REPO_URL="https://github.com/sweetravinder/crm-vici.git"
-BRANCH="main"
-TARGET_DIR="/tmp/vicicrm_build_$$"
+echo "==============================="
+echo "     ViciCRM Build System"
+echo "==============================="
+
+REPO_ROOT="$GITHUB_WORKSPACE"
+BUILD_DIR="/tmp/vicicrm_build_$$"
 PKG_PREFIX="vicicrm_enterprise_full"
-TS=$(date -u +'%Y%m%dT%H%M%SZ')
+TS=$(date -u +'%Y%m%dT%H%M%SZ"
 PKG_NAME="${PKG_PREFIX}_${TS}"
 
-echo "Cloning the repository..."
-git clone --depth 1 --branch "$BRANCH" "$REPO_URL" "$TARGET_DIR"
+echo "Creating build directory..."
+mkdir -p "$BUILD_DIR"
 
-cd "$TARGET_DIR"
+echo "Copying vicicrm/ folder to build directory..."
+cp -r "$REPO_ROOT/vicicrm" "$BUILD_DIR/vicicrm"
 
-echo "Checking directory structure..."
-if [ ! -d "vicicrm" ]; then
-    echo "ERROR: 'vicicrm' folder not found in repo root"; exit 1
+if [ ! -d "$BUILD_DIR/vicicrm" ]; then
+    echo "ERROR: vicicrm folder missing!"; exit 1
 fi
 
-echo "Building tar.gz..."
-tar -czf "${PKG_NAME}.tar.gz" vicicrm
+cd "$BUILD_DIR"
 
-echo "Building zip..."
+echo "--------------------------------"
+echo " Building ZIP Package"
+echo "--------------------------------"
 zip -r "${PKG_NAME}.zip" vicicrm
 
-echo "Moving artifacts up..."
-mv "${PKG_NAME}.tar.gz" "${PKG_NAME}.zip" ..
+echo "--------------------------------"
+echo " Building TAR.GZ Package"
+echo "--------------------------------"
+tar -czf "${PKG_NAME}.tar.gz" vicicrm
 
-echo "Artifacts built:"
-ls -lh "../${PKG_NAME}.tar.gz" "../${PKG_NAME}.zip"
+echo "--------------------------------"
+echo " Generating SHA256"
+echo "--------------------------------"
+sha256sum "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" > sha256.txt
 
-echo "Done."
+echo "--------------------------------"
+echo " Moving artifacts"
+echo "--------------------------------"
+mv "${PKG_NAME}.zip" "${PKG_NAME}.tar.gz" sha256.txt "$REPO_ROOT"
+
+echo "--------------------------------"
+echo " BUILD COMPLETE"
+echo "--------------------------------"
+
+ls -lh "$REPO_ROOT/${PKG_PREFIX}"*
